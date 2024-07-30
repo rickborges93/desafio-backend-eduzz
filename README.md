@@ -28,7 +28,7 @@ git clone https://github.com/rickborges93/desafio-backend-eduzz.git
 cd desafio-backend-eduzz
 ```
 
-3. Install the dependances
+3. Install the dependances.
 ```
   npm install
 ```
@@ -36,7 +36,7 @@ cd desafio-backend-eduzz
 
 ## How to install the docker dependance
 
-After project ready, in the root folder at the project just run the code below:
+After project ready, in the root folder at the project just run the code below.
 
 ```
   docker-compose up -d
@@ -46,7 +46,13 @@ In your Docker you'll see a new container that were created for this project. Th
 
 ## How to run the project
 
-Now, we need to run the project:
+1. Run all the migrations.
+
+```
+  npx prisma migrate deploy
+```
+
+2. Now, we need to run the project.
 
 ```
   npm run dev
