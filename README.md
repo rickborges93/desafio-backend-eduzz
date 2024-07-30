@@ -14,12 +14,16 @@
 - [ ] It should be possible to buy bitcoin using the available balance in the costumer's account
 - [ ] It should be possible to see all the customer's transactions 
 - [ ] It should be possible to sell BTC
+- [ ] It should be possible to list the deposits, purchases and withdrawals (last 90 days)
+- [ ] It should be possible to see the total of bought and sold BTC at the current day
+- [ ] It should be possible to see the history of the bought/sold value of BTC grouping by 10 minutes about last 24 hours
 
 ### Business Rules (RNs)
 - [ ] Send an e-mail with the value of money deposited at the platform 
 - [ ] When buy bitcoin we calculate the conversion of the value in reais ate the selling price 
 - [ ] When buy bitcoin an e-mail must be sent with the amount invested in R$ and amount BTC purchased
 - [ ] Costumer Transaction: Purchase date, amount invested, value of BTC at the time of purchase, percentage change in the price of Bitcoin and current gross value of the investment.
+- [ ] At the sales time, an e-mail must be sent with the value sold in BTC and the value redeemed in R$
 
 ### Non-functional Requirements (RNFs)
 - [ ] The costumer's password must be cryptographed
