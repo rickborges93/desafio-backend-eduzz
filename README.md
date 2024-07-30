@@ -1,6 +1,33 @@
 # Eduzz Technical Test
  Technical test for mid level backend developer for the company Eduzz.
 
+---
+
+## Software Engeneering
+
+### Functional Requirements (RFs)
+- [ ] It should be possible to register
+- [ ] It should be possible to authenticate
+- [ ] It should be possible to deposit money (reais) at the platform
+- [ ] It should be possible to check the available balance in reais in the costumer's account
+- [ ] It should be possible to see the current bitcoin price, purchase and sale
+- [ ] It should be possible to buy bitcoin using the available balance in the costumer's account
+- [ ] It should be possible to see all the customer's transactions 
+- [ ] It should be possible to sell BTC
+
+### Business Rules (RNs)
+- [ ] Send an e-mail with the value of money deposited at the platform 
+- [ ] When buy bitcoin we calculate the conversion of the value in reais ate the selling price 
+- [ ] When buy bitcoin an e-mail must be sent with the amount invested in R$ and amount BTC purchased
+- [ ] Costumer Transaction: Purchase date, amount invested, value of BTC at the time of purchase, percentage change in the price of Bitcoin and current gross value of the investment.
+
+### Non-functional Requirements (RNFs)
+- [ ] The costumer's password must be cryptographed
+- [x] The database must be MariaDB, Postgres or MongoDB
+- [ ] The costumer must be identified by a JWT (JSON Web Token)
+
+---
+
 ## Technologies
 - Fastify
 - Typescript
