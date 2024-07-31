@@ -20,5 +20,51 @@ model User {
   password_hash String
   created_at    DateTime @default(now())
 
+  Billings       Billing[]
+  BtcTransaction BtcTransaction[]
+
   @@map("users")
+}
+
+model Billing {
+  id String @id @default(uuid())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  amount         Decimal          @db.Decimal(9, 2)
+  type           TypeBilling      @default(deposit)
+  created_at     DateTime         @default(now())
+  BtcTransaction BtcTransaction[]
+
+  @@map("billings")
+}
+
+model BtcTransaction {
+  id String @id @default(uuid())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  billing    Billing @relation(fields: [billing_id], references: [id])
+  billing_id String
+
+  current_btc  Decimal            @db.Decimal(9, 8)
+  bought_btc   Decimal            @db.Decimal(9, 8)
+  variation_pc Decimal            @db.Decimal(9, 2)
+  type         TypeBtcTransaction @default(buy)
+
+  created_at DateTime @default(now())
+
+  @@map("btc_transactions")
+}
+
+enum TypeBilling {
+  deposit
+  withdraw
+}
+
+enum TypeBtcTransaction {
+  buy
+  sell
 }
