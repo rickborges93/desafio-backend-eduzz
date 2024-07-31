@@ -13,8 +13,8 @@ describe('Get BTC Price Use Case', () => {
   it('should be able to get btc price', async () => {
     const data = await sut.execute()
 
-    expect(data.buy).toEqual(expect.any(String))
-    expect(data.sell).toEqual(expect.any(String))
-    expect(data.currentPrice).toEqual(expect.any(String))
+    expect(data.buy).toEqual(expect.any(Number))
+    expect(data.sell).toEqual(expect.any(Number))
+    expect(data.currentPrice).toEqual(expect.any(Number))
   })
 })

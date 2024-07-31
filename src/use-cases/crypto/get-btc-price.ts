@@ -1,6 +1,6 @@
-import { getExternalRequest } from '@/utils/get-btc-current-quote'
+import { getCurrentBtcQuote } from '@/utils/get-current-btc-quote'
 
-interface TickerBTC {
+export interface TickerBTC {
   high: string
   low: string
   vol: string
@@ -13,24 +13,16 @@ interface TickerBTC {
 }
 
 interface GetBtcPriceUseCaseResponse {
-  buy: string
-  sell: string
-  currentPrice: string
+  buy: number
+  sell: number
+  currentPrice: number
+  open: number
 }
 
 export class GetBtcPriceUseCase {
   async execute(): Promise<GetBtcPriceUseCaseResponse> {
-    const response = await getExternalRequest(
-      'https://www.mercadobitcoin.net/api/BTC/ticker/',
-      [200],
-    )
+    const data = getCurrentBtcQuote()
 
-    const ticker: TickerBTC = response.ticker
-
-    return {
-      buy: ticker.buy,
-      sell: ticker.sell,
-      currentPrice: ticker.last,
-    }
+    return data
   }
 }
