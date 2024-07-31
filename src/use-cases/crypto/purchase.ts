@@ -34,9 +34,19 @@ export class PurchaseUseCase {
 
     const currentBtcQuote = await getCurrentBtcQuote()
 
-    const boughtBtc = (100 * amount) / currentBtcQuote.sell / 100
+    const boughtBtc = ((100 * amount) / currentBtcQuote.sell / 100).toFixed(8)
 
-    const variationBtc = (currentBtcQuote.sell / currentBtcQuote.open - 1) * 100
+    const variationBtc = (
+      (currentBtcQuote.sell / currentBtcQuote.open - 1) *
+      100
+    ).toFixed(8)
+
+    console.log({
+      user_id: userId,
+      bought_btc: boughtBtc,
+      current_btc: currentBtcQuote.currentPrice,
+      variation_pc: variationBtc,
+    })
 
     const withdrawBilling = await this.billingsRepository.create({
       amount,
