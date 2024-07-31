@@ -29,7 +29,7 @@
 - [x] The programming language must be Node.js with TypeScript
 - [x] The costumer's password must be cryptographed
 - [x] The database must be MariaDB, Postgres or MongoDB
-- [ ] The costumer must be identified by a JWT (JSON Web Token)
+- [x] The costumer must be identified by a JWT (JSON Web Token)
 
 ---
 
