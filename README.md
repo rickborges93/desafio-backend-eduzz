@@ -26,6 +26,7 @@
 - [ ] At the sales time, an e-mail must be sent with the value sold in BTC and the value redeemed in R$
 
 ### Non-functional Requirements (RNFs)
+- [x] The programming language must be Node.js with TypeScript
 - [ ] The costumer's password must be cryptographed
 - [x] The database must be MariaDB, Postgres or MongoDB
 - [ ] The costumer must be identified by a JWT (JSON Web Token)
