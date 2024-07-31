@@ -10,10 +10,8 @@ export async function balance(request: FastifyRequest, reply: FastifyReply) {
       userId,
     })
 
-    return { total }
+    return reply.status(200).send({ total })
   } catch (err) {
     return err
   }
-
-  return reply.status(200).send()
 }
