@@ -7,7 +7,7 @@
 
 ### Functional Requirements (RFs)
 - [x] It should be possible to register
-- [ ] It should be possible to authenticate
+- [x] It should be possible to authenticate
 - [ ] It should be possible to deposit money (reais) at the platform
 - [ ] It should be possible to check the available balance in reais in the costumer's account
 - [ ] It should be possible to see the current bitcoin price, purchase and sale
