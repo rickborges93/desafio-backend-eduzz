@@ -6,7 +6,7 @@
 ## Software Engeneering
 
 ### Functional Requirements (RFs)
-- [ ] It should be possible to register
+- [x] It should be possible to register
 - [ ] It should be possible to authenticate
 - [ ] It should be possible to deposit money (reais) at the platform
 - [ ] It should be possible to check the available balance in reais in the costumer's account
@@ -27,7 +27,7 @@
 
 ### Non-functional Requirements (RNFs)
 - [x] The programming language must be Node.js with TypeScript
-- [ ] The costumer's password must be cryptographed
+- [x] The costumer's password must be cryptographed
 - [x] The database must be MariaDB, Postgres or MongoDB
 - [ ] The costumer must be identified by a JWT (JSON Web Token)
 
