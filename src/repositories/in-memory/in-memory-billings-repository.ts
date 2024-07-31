@@ -5,6 +5,10 @@ import { BillingsRepository } from '../billings-repository'
 export class InMemoryBillingsRepository implements BillingsRepository {
   public items: Billing[] = []
 
+  async findManyByUserId(userId: string) {
+    return this.items.filter((item) => item.user_id === userId)
+  }
+
   async create(data: Prisma.BillingUncheckedCreateInput) {
     const billing = {
       id: randomUUID(),
