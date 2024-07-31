@@ -1,7 +1,8 @@
 import { FastifyInstance, FastifyReply } from 'fastify'
 import { register } from './controllers/register'
 import { authenticate } from './controllers/authenticate'
-// import { verifyJWT } from './middlewares/verify-jwt'
+import { verifyJWT } from './middlewares/verify-jwt'
+import { deposit } from './controllers/deposit'
 
 export async function appRoutes(app: FastifyInstance) {
   // default route to verify if it's working.
@@ -14,5 +15,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/login', authenticate)
 
   // authenticated routes
-  // app.post('/deposit', { onRequest: [verifyJWT] }, deposit)
+  app.post('/account/deposit', { onRequest: [verifyJWT] }, deposit)
 }
