@@ -1,5 +1,5 @@
 import { PrismaBillingsRepository } from '@/repositories/prisma/prisma-billings-repository'
-import { BalanceUseCase } from '../balance'
+import { BalanceUseCase } from '../account/balance'
 
 export function makeBalanceUseCase() {
   const billingsRepository = new PrismaBillingsRepository()

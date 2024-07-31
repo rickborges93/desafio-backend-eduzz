@@ -1,5 +1,5 @@
 import { PrismaBillingsRepository } from '@/repositories/prisma/prisma-billings-repository'
-import { DepositUseCase } from '../deposit'
+import { DepositUseCase } from '../account/deposit'
 
 export function makeDepositUseCase() {
   const billingsRepository = new PrismaBillingsRepository()
