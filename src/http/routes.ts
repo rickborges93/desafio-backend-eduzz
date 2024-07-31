@@ -6,6 +6,7 @@ import { register } from './controllers/register'
 import { deposit } from './controllers/deposit'
 import { balance } from './controllers/balance'
 import { getBtcPrice } from './controllers/get-btc-price'
+import { purchase } from './controllers/purchase'
 
 export async function appRoutes(app: FastifyInstance) {
   // default route to verify if it's working.
@@ -22,4 +23,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/account/balance', { onRequest: [verifyJWT] }, balance)
 
   app.get('/btc/price', { onRequest: [verifyJWT] }, getBtcPrice)
+  app.post('/btc/purchase', { onRequest: [verifyJWT] }, purchase)
 }
