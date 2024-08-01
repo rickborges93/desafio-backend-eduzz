@@ -22,7 +22,7 @@
 - [ ] Send an e-mail with the value of money deposited at the platform 
 - [x] When buy bitcoin we calculate the conversion of the value in reais ate the selling price 
 - [ ] When buy bitcoin an e-mail must be sent with the amount invested in R$ and amount BTC purchased
-- [ ] Costumer Transaction: Purchase date, amount invested, value of BTC at the time of purchase, percentage change in the price of Bitcoin and current gross value of the investment.
+- [x] Costumer Transaction: Purchase date, amount invested, value of BTC at the time of purchase, percentage change in the price of Bitcoin and current gross value of the investment.
 - [ ] At the sales time, an e-mail must be sent with the value sold in BTC and the value redeemed in R$
 
 ### Non-functional Requirements (RNFs)
