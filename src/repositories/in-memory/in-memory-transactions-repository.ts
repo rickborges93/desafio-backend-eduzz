@@ -8,6 +8,21 @@ export class InMemoryTransactionsRepository
 {
   public items: BtcTransaction[] = []
 
+  async findManyByUserIdAndDateRange(
+    userId: string,
+    initialDate: Date,
+    finalDate: Date,
+  ) {
+    return this.items.filter((item) => {
+      const transactionDate = dayjs(item.created_at)
+      const isOnSameDate =
+        transactionDate.isAfter(initialDate) &&
+        transactionDate.isBefore(finalDate)
+
+      return isOnSameDate && userId === item.user_id
+    })
+  }
+
   async findManyByDateRange(initialDate: Date, finalDate: Date) {
     return this.items.filter((item) => {
       const transactionDate = dayjs(item.created_at)
