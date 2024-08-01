@@ -1,12 +1,17 @@
 import { BtcTransaction } from '@prisma/client'
 import { BtcTransactionsRepository } from '@/repositories/transactions-repository'
 
+export type TBtcTransactionMapper = Omit<
+  BtcTransaction,
+  'id' | 'user_id' | 'billing_id'
+>
+
 interface PositionUseCaseRequest {
   userId: string
 }
 
 interface PositionUseCaseResponse {
-  btcTransactions: BtcTransaction[]
+  btcTransactions: TBtcTransactionMapper[]
 }
 
 export class PositionUseCase {
