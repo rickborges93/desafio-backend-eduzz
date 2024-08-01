@@ -1,11 +1,23 @@
 import { BtcTransaction, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { BtcTransactionsRepository } from '../transactions-repository'
+import dayjs from 'dayjs'
 
 export class InMemoryTransactionsRepository
   implements BtcTransactionsRepository
 {
   public items: BtcTransaction[] = []
+
+  async findManyByDateRange(initialDate: Date, finalDate: Date) {
+    return this.items.filter((item) => {
+      const transactionDate = dayjs(item.created_at)
+      const isOnSameDate =
+        transactionDate.isAfter(initialDate) &&
+        transactionDate.isBefore(finalDate)
+
+      return isOnSameDate
+    })
+  }
 
   async findManyByUserId(userId: string) {
     return this.items.filter((item) => item.user_id === userId)
