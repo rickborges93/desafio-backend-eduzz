@@ -1,8 +1,8 @@
 import { BtcTransactionsRepository } from '@/repositories/transactions-repository'
-import { Billing, BtcTransaction } from '@prisma/client'
 import dayjs from 'dayjs'
 import { InvalidStartDateError } from '../errors/invalid-start-date-error'
 import { BillingsRepository } from '@/repositories/billings-repository'
+import { TBillingMapper, TBtcTransactionMapper } from '@/@types/mapper'
 
 interface ExtractUseCaseRequest {
   userId: string
@@ -11,8 +11,8 @@ interface ExtractUseCaseRequest {
 }
 
 interface ExtractUseCaseResponse {
-  billings: Billing[]
-  btcTransactions: BtcTransaction[]
+  billings: TBillingMapper[]
+  btcTransactions: TBtcTransactionMapper[]
 }
 
 export class ExtractUseCase {
@@ -33,7 +33,7 @@ export class ExtractUseCase {
     const endDate = finalDate ? new Date(finalDate) : dayjs(new Date())
 
     const startOfTheDay = dayjs(startDate).startOf('date')
-    const endOfTheDay = dayjs(endDate).endOf('date')
+    const endOfTheDay = dayjs(endDate).endOf('day')
 
     if (dayjs(endOfTheDay).isBefore(startOfTheDay)) {
       throw new InvalidStartDateError()
