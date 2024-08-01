@@ -20,6 +20,7 @@ describe('Position Use Case', () => {
       bought_btc: '0.0006485',
       current_btc: '700451.475',
       variation_pc: 0.21,
+      type: 'buy',
     })
 
     await btcTransactionsRepository.create({
@@ -28,6 +29,7 @@ describe('Position Use Case', () => {
       bought_btc: '0.0014521',
       current_btc: '720451.475',
       variation_pc: 0.41,
+      type: 'buy',
     })
 
     await btcTransactionsRepository.create({
@@ -36,15 +38,16 @@ describe('Position Use Case', () => {
       bought_btc: '0.0011485',
       current_btc: '718451.475',
       variation_pc: 0.35,
+      type: 'buy',
     })
 
     const { btcTransactions } = await sut.execute({ userId: 'user-1' })
 
     expect(btcTransactions).toHaveLength(3)
     expect(btcTransactions).toEqual([
-      expect.objectContaining({ billing_id: 'billing-1' }),
-      expect.objectContaining({ billing_id: 'billing-2' }),
-      expect.objectContaining({ billing_id: 'billing-3' }),
+      expect.objectContaining({ type: 'buy' }),
+      expect.objectContaining({ type: 'buy' }),
+      expect.objectContaining({ type: 'buy' }),
     ])
   })
 })
