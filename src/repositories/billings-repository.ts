@@ -1,3 +1,4 @@
+import { TBillingMapper } from '@/@types/mapper'
 import { Billing, Prisma } from '@prisma/client'
 
 export interface BillingsRepository {
@@ -5,7 +6,7 @@ export interface BillingsRepository {
     userId: string,
     initialDate: Date,
     finalDate: Date,
-  ): Promise<Billing[]>
+  ): Promise<TBillingMapper[]>
   findManyByUserId(userId: string): Promise<Billing[]>
   create(data: Prisma.BillingUncheckedCreateInput): Promise<Billing>
 }

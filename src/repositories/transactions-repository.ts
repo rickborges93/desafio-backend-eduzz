@@ -1,4 +1,4 @@
-import { TBtcTransactionMapper } from '@/use-cases/crypto/position'
+import { TBtcTransactionMapper } from '@/@types/mapper'
 import { BtcTransaction, Prisma } from '@prisma/client'
 
 export interface BtcTransactionsRepository {
@@ -6,7 +6,7 @@ export interface BtcTransactionsRepository {
     userId: string,
     initialDate: Date,
     finalDate: Date,
-  ): Promise<BtcTransaction[]>
+  ): Promise<Omit<BtcTransaction, 'id' | 'user_id' | 'billing_id'>[]>
   findManyByDateRange(
     initialDate: Date,
     finalDate: Date,
