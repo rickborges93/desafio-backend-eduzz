@@ -10,6 +10,7 @@ import { purchase } from './controllers/crypto/purchase'
 import { position } from './controllers/crypto/position'
 import { volume } from './controllers/volume/volume'
 import { extract } from './controllers/extract/extract'
+import { history } from './controllers/history/history'
 
 export async function appRoutes(app: FastifyInstance) {
   // default route to verify if it's working.
@@ -35,4 +36,7 @@ export async function appRoutes(app: FastifyInstance) {
 
   // extract
   app.get('/extract', { onRequest: [verifyJWT] }, extract)
+
+  // history
+  app.get('/history', { onRequest: [verifyJWT] }, history)
 }
