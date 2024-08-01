@@ -12,7 +12,7 @@
 - [x] It should be possible to check the available balance in reais in the costumer's account
 - [x] It should be possible to see the current bitcoin price, purchase and sale
 - [x] It should be possible to buy bitcoin using the available balance in the costumer's account
-- [ ] It should be possible to see all the customer's transactions 
+- [x] It should be possible to see all the customer's transactions 
 - [ ] It should be possible to sell BTC
 - [ ] It should be possible to list the deposits, purchases and withdrawals (last 90 days)
 - [ ] It should be possible to see the total of bought and sold BTC at the current day

@@ -41,13 +41,6 @@ export class PurchaseUseCase {
       100
     ).toFixed(8)
 
-    console.log({
-      user_id: userId,
-      bought_btc: boughtBtc,
-      current_btc: currentBtcQuote.currentPrice,
-      variation_pc: variationBtc,
-    })
-
     const withdrawBilling = await this.billingsRepository.create({
       amount,
       type: 'withdraw',

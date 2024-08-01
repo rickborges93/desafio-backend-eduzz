@@ -7,6 +7,10 @@ export class InMemoryTransactionsRepository
 {
   public items: BtcTransaction[] = []
 
+  async findManyByUserId(userId: string) {
+    return this.items.filter((item) => item.user_id === userId)
+  }
+
   async create(data: Prisma.BtcTransactionUncheckedCreateInput) {
     const transaction = {
       id: randomUUID(),
