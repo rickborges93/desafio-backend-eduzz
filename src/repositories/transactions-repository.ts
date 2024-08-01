@@ -6,7 +6,7 @@ export interface BtcTransactionsRepository {
     userId: string,
     initialDate: Date,
     finalDate: Date,
-  ): Promise<Omit<BtcTransaction, 'id' | 'user_id' | 'billing_id'>[]>
+  ): Promise<TBtcTransactionMapper[]>
   findManyByDateRange(
     initialDate: Date,
     finalDate: Date,
