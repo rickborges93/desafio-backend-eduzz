@@ -5,6 +5,19 @@ import { BtcTransactionsRepository } from '../transactions-repository'
 export class PrismaBtcTransactionsRepository
   implements BtcTransactionsRepository
 {
+  async findManyByDateRange(initialDate: Date, finalDate: Date) {
+    const btcTransactions = await prisma.btcTransaction.findMany({
+      where: {
+        created_at: {
+          gte: initialDate,
+          lte: finalDate,
+        },
+      },
+    })
+
+    return btcTransactions
+  }
+
   async findManyByUserId(userId: string) {
     const btcTransactions = await prisma.btcTransaction.findMany({
       where: {
