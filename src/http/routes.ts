@@ -2,11 +2,11 @@ import { FastifyInstance, FastifyReply } from 'fastify'
 import { verifyJWT } from './middlewares/verify-jwt'
 
 import { authenticate } from './controllers/authenticate'
-import { register } from './controllers/register'
-import { deposit } from './controllers/deposit'
-import { balance } from './controllers/balance'
-import { getBtcPrice } from './controllers/get-btc-price'
-import { purchase } from './controllers/purchase'
+import { register } from './controllers/account/register'
+import { deposit } from './controllers/account/deposit'
+import { balance } from './controllers/account/balance'
+import { getBtcPrice } from './controllers/crypto/get-btc-price'
+import { purchase } from './controllers/crypto/purchase'
 
 export async function appRoutes(app: FastifyInstance) {
   // default route to verify if it's working.
@@ -14,14 +14,15 @@ export async function appRoutes(app: FastifyInstance) {
     return reply.status(200).send('Welcome to BTC bank!')
   })
 
-  // system routes
+  // authenticate
   app.post('/login', authenticate)
-  app.post('/account', register)
 
-  // authenticated routes
+  // account
+  app.post('/account', register)
   app.post('/account/deposit', { onRequest: [verifyJWT] }, deposit)
   app.get('/account/balance', { onRequest: [verifyJWT] }, balance)
 
+  // crypto
   app.get('/btc/price', { onRequest: [verifyJWT] }, getBtcPrice)
   app.post('/btc/purchase', { onRequest: [verifyJWT] }, purchase)
 }
