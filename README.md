@@ -14,7 +14,7 @@
 - [x] It should be possible to buy bitcoin using the available balance in the costumer's account
 - [x] It should be possible to see all the customer's transactions 
 - [ ] It should be possible to sell BTC
-- [ ] It should be possible to list the deposits, purchases and withdrawals (last 90 days)
+- [x] It should be possible to list the deposits, purchases and withdrawals (last 90 days)
 - [x] It should be possible to see the total of bought and sold BTC at the current day
 - [ ] It should be possible to see the history of the bought/sold value of BTC grouping by 10 minutes about last 24 hours
 
