@@ -2,16 +2,19 @@ import { expect, describe, it, beforeEach, afterEach, vi } from 'vitest'
 import { InMemoryTransactionsRepository } from '@/repositories/in-memory/in-memory-transactions-repository'
 import { ExtractUseCase } from './extract'
 import { InvalidStartDateError } from '../errors/invalid-start-date-error'
+import { InMemoryBillingsRepository } from '@/repositories/in-memory/in-memory-billings-repository'
 
 // Unit test
 
 let btcTransactionsRepository: InMemoryTransactionsRepository
+let billingsRepository: InMemoryBillingsRepository
 let sut: ExtractUseCase
 
-describe('Volume Use Case', () => {
+describe('Extract Use Case', () => {
   beforeEach(async () => {
     btcTransactionsRepository = new InMemoryTransactionsRepository()
-    sut = new ExtractUseCase(btcTransactionsRepository)
+    billingsRepository = new InMemoryBillingsRepository()
+    sut = new ExtractUseCase(btcTransactionsRepository, billingsRepository)
 
     vi.useFakeTimers()
   })
@@ -30,6 +33,12 @@ describe('Volume Use Case', () => {
       current_btc: '700451.475',
       variation_pc: 0.21,
       type: 'buy',
+    })
+
+    await billingsRepository.create({
+      user_id: 'user-1',
+      amount: 200,
+      type: 'deposit',
     })
 
     vi.setSystemTime(new Date(2024, 7, 22, 10, 0, 0))
@@ -52,12 +61,32 @@ describe('Volume Use Case', () => {
       type: 'sell',
     })
 
-    const { btcTransactions } = await sut.execute({ userId: 'user-1' })
+    await billingsRepository.create({
+      user_id: 'user-1',
+      amount: 500,
+      type: 'deposit',
+    })
+
+    await billingsRepository.create({
+      user_id: 'user-1',
+      amount: 300,
+      type: 'deposit',
+    })
+
+    const { btcTransactions, billings } = await sut.execute({
+      userId: 'user-1',
+    })
 
     expect(btcTransactions).toHaveLength(2)
+    expect(billings).toHaveLength(2)
+
     expect(btcTransactions).toEqual([
       expect.objectContaining({ type: 'buy' }),
       expect.objectContaining({ type: 'sell' }),
+    ])
+    expect(billings).toEqual([
+      expect.objectContaining({ type: 'deposit' }),
+      expect.objectContaining({ type: 'deposit' }),
     ])
   })
 
@@ -73,6 +102,12 @@ describe('Volume Use Case', () => {
 
   it('should be able to extract passing start date lesser than end date', async () => {
     vi.setSystemTime(new Date(2024, 1, 20, 10, 0, 0))
+
+    await billingsRepository.create({
+      user_id: 'user-1',
+      amount: 200,
+      type: 'deposit',
+    })
 
     await btcTransactionsRepository.create({
       billing_id: 'billing-1',
@@ -94,6 +129,14 @@ describe('Volume Use Case', () => {
       type: 'buy',
     })
 
+    vi.setSystemTime(new Date(2024, 5, 25, 10, 0, 0))
+
+    await billingsRepository.create({
+      user_id: 'user-1',
+      amount: 1000,
+      type: 'deposit',
+    })
+
     vi.setSystemTime(new Date(2024, 6, 22, 10, 0, 0))
 
     await btcTransactionsRepository.create({
@@ -105,16 +148,20 @@ describe('Volume Use Case', () => {
       type: 'sell',
     })
 
-    const { btcTransactions } = await sut.execute({
+    const { btcTransactions, billings } = await sut.execute({
       userId: 'user-1',
       initialDate: new Date('2024-05-10'),
       finalDate: new Date('2024-08-01'),
     })
 
     expect(btcTransactions).toHaveLength(2)
+    expect(billings).toHaveLength(1)
+
     expect(btcTransactions).toEqual([
       expect.objectContaining({ type: 'buy' }),
       expect.objectContaining({ type: 'sell' }),
     ])
+
+    expect(billings).toEqual([expect.objectContaining({ type: 'deposit' })])
   })
 })

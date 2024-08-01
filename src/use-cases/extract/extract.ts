@@ -1,7 +1,8 @@
 import { BtcTransactionsRepository } from '@/repositories/transactions-repository'
-import { BtcTransaction } from '@prisma/client'
+import { Billing, BtcTransaction } from '@prisma/client'
 import dayjs from 'dayjs'
 import { InvalidStartDateError } from '../errors/invalid-start-date-error'
+import { BillingsRepository } from '@/repositories/billings-repository'
 
 interface ExtractUseCaseRequest {
   userId: string
@@ -10,11 +11,15 @@ interface ExtractUseCaseRequest {
 }
 
 interface ExtractUseCaseResponse {
+  billings: Billing[]
   btcTransactions: BtcTransaction[]
 }
 
 export class ExtractUseCase {
-  constructor(private btcTransactionsRepository: BtcTransactionsRepository) {}
+  constructor(
+    private btcTransactionsRepository: BtcTransactionsRepository,
+    private billingsRepository: BillingsRepository,
+  ) {}
 
   async execute({
     userId,
@@ -41,6 +46,12 @@ export class ExtractUseCase {
         endOfTheDay.toDate(),
       )
 
-    return { btcTransactions }
+    const billings = await this.billingsRepository.findManyByUserIdAndDateRange(
+      userId,
+      startOfTheDay.toDate(),
+      endOfTheDay.toDate(),
+    )
+
+    return { btcTransactions, billings }
   }
 }
