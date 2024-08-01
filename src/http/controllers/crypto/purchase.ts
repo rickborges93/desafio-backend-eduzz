@@ -26,5 +26,5 @@ export async function purchase(request: FastifyRequest, reply: FastifyReply) {
     return err
   }
 
-  return reply.status(200).send()
+  return reply.status(201).send()
 }

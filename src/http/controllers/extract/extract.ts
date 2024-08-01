@@ -1,3 +1,4 @@
+import { InvalidStartDateError } from '@/use-cases/errors/invalid-start-date-error'
 import { makeExtractUseCase } from '@/use-cases/factories/make-extract-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -23,6 +24,9 @@ export async function extract(request: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(200).send(data)
   } catch (err) {
+    if (err instanceof InvalidStartDateError) {
+      return reply.status(422).send({ message: err.message })
+    }
     return err
   }
 }
