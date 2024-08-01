@@ -8,7 +8,7 @@ export async function getBtcPrice(_: FastifyRequest, reply: FastifyReply) {
 
     const data = await getBtcPriceUseCase.execute()
 
-    return reply.status(201).send(data)
+    return reply.status(200).send(data)
   } catch (err) {
     if (err instanceof BadRequestError) {
       return reply.status(500).send({ message: err.message })
