@@ -3,6 +3,7 @@ import { appRoutes } from './http/routes'
 import fastifyJwt from '@fastify/jwt'
 import { env } from './env'
 import { ZodError } from 'zod'
+import { appCronJobs } from './crons'
 
 export const app = fastify()
 
@@ -11,6 +12,8 @@ app.register(fastifyJwt, {
 })
 
 app.register(appRoutes)
+
+app.register(appCronJobs)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
