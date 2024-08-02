@@ -11,6 +11,7 @@ import { position } from './controllers/crypto/position'
 import { volume } from './controllers/volume/volume'
 import { extract } from './controllers/extract/extract'
 import { history } from './controllers/history/history'
+import { sell } from './controllers/crypto/sell'
 
 export async function appRoutes(app: FastifyInstance) {
   // default route to verify if it's working.
@@ -30,6 +31,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/btc/price', { onRequest: [verifyJWT] }, getBtcPrice)
   app.post('/btc/purchase', { onRequest: [verifyJWT] }, purchase)
   app.get('/btc', { onRequest: [verifyJWT] }, position)
+  app.post('/btc/sell', { onRequest: [verifyJWT] }, sell)
 
   // volume
   app.get('/volume', { onRequest: [verifyJWT] }, volume)

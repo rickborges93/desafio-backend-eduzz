@@ -1,14 +1,14 @@
 import { PrismaBillingsRepository } from '@/repositories/prisma/prisma-billings-repository'
 import { PrismaBtcTransactionsRepository } from '@/repositories/prisma/prisma-transactions-repository'
-import { ExtractUseCase } from '../extract/extract'
+import { SellUseCase } from '../crypto/sell'
 
-export function makeExtractUseCase() {
+export function makeSellUseCase() {
   const btcTransactionRepository = new PrismaBtcTransactionsRepository()
   const billingsRepository = new PrismaBillingsRepository()
-  const extractUseCase = new ExtractUseCase(
-    btcTransactionRepository,
+  const sellUseCase = new SellUseCase(
     billingsRepository,
+    btcTransactionRepository,
   )
 
-  return extractUseCase
+  return sellUseCase
 }

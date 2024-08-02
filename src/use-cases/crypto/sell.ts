@@ -62,10 +62,6 @@ export class SellUseCase {
       return { btcTransaction }
     }
 
-    // No caso de venda parcial o investimento deve ser liquidado completamente,
-    // e o valor residual deve ser reinvestido usando a cotação original do BTC.
-    // As duas transações (saque parcial e investimento) devem estar presentes no extrato.
-
     const differenceOfBtcBoughtAndWantToSell = (totalBalance - amount).toFixed(
       8,
     )
@@ -86,8 +82,6 @@ export class SellUseCase {
       variation_pc: variationBtc,
       type: 'sell',
     })
-
-    // compra a diferença
 
     const newAmountToBuyBtc = (
       (totalBalance - amount) *

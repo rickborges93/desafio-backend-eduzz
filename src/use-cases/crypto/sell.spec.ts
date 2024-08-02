@@ -52,7 +52,7 @@ describe('Sell Use Case', () => {
 
   it('should be able to sell partial BTC', async () => {
     const { btcTransaction } = await sut.execute({
-      amount: 0.0006485,
+      amount: 0.0004485,
       userId: 'user-1',
     })
 
