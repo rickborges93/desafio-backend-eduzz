@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Extract (e2e)', () => {
   beforeAll(async () => {
@@ -12,18 +13,7 @@ describe('Extract (e2e)', () => {
   })
 
   it('should be able to get the extract', async () => {
-    await request(app.server).post('/account').send({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123456',
-    })
-
-    const authResponse = await request(app.server).post('/login').send({
-      email: 'johndoe@example.com',
-      password: '123456',
-    })
-
-    const { token } = authResponse.body
+    const { token } = await createAndAuthenticateUser(app)
 
     await request(app.server)
       .post('/account/deposit')
