@@ -38,18 +38,22 @@
 ## Technologies
 - Fastify
 - Typescript
+- FastifyJWT
+- Prisma (ORM)
 - zod
 - ESLint
 - DotEnv
 - vitest
-- Prisma (ORM)
+- supertest (request for e2e tests)
 - bcryptjs
 - dayjs
+- SendGrid (mail provider)
 
 ## Methologies
 - SOLID
 - TDD
 - Factory
+- Clean Code
 
 ---
 ## How to make the project ready
