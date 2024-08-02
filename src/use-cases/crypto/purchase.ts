@@ -4,10 +4,13 @@ import { BtcTransaction } from '@prisma/client'
 import { InsufficientBalanceError } from '../errors/insufficient-balance-error'
 import { BtcTransactionsRepository } from '@/repositories/transactions-repository'
 import { getCurrentBtcQuote } from '@/utils/get-current-btc-quote'
+import MailProvider from '@/providers/adapters/models/MailProvider'
+import { env } from '@/env'
 
 interface PurchaseUseCaseRequest {
   amount: number
   userId: string
+  email: string
 }
 
 interface PurchaseUseCaseResponse {
@@ -18,11 +21,13 @@ export class PurchaseUseCase {
   constructor(
     private billingsRepository: BillingsRepository,
     private btcTransactionsRepository: BtcTransactionsRepository,
+    private mailProvider: MailProvider,
   ) {}
 
   async execute({
     amount,
     userId,
+    email,
   }: PurchaseUseCaseRequest): Promise<PurchaseUseCaseResponse> {
     const billings = await this.billingsRepository.findManyByUserId(userId)
 
@@ -53,6 +58,13 @@ export class PurchaseUseCase {
       bought_btc: boughtBtc,
       current_btc: currentBtcQuote.currentPrice,
       variation_pc: variationBtc,
+    })
+
+    this.mailProvider.sendEmail({
+      from: { email: env.MAIL_PROVIDER_EMAIL, name: env.MAIL_PROVIDER_NAME },
+      to: email,
+      subject: '[Eduzz BTC Bank] Compra de Bitcoin',
+      body: `Você investiu R$${amount} e recebeu ${boughtBtc} BTC.`,
     })
 
     return { btcTransaction }
