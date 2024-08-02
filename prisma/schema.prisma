@@ -32,9 +32,10 @@ model Billing {
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  amount         Decimal          @db.Decimal(9, 2)
-  type           TypeBilling      @default(deposit)
-  created_at     DateTime         @default(now())
+  amount     Decimal     @db.Decimal(9, 2)
+  type       TypeBilling @default(deposit)
+  created_at DateTime    @default(now())
+
   BtcTransaction BtcTransaction[]
 
   @@map("billings")
@@ -46,7 +47,7 @@ model BtcTransaction {
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  billing    Billing @relation(fields: [billing_id], references: [id])
+  billing    Billing @relation(fields: [billing_id], references: [id], onDelete: Cascade)
   billing_id String
 
   current_btc  Decimal            @db.Decimal(17, 8)
