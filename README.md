@@ -31,6 +31,7 @@
 - [x] The costumer's password must be cryptographed
 - [x] The database must be MariaDB, Postgres or MongoDB
 - [x] The costumer must be identified by a JWT (JSON Web Token)
+- [x] Test pyramid
 
 ---
 
