@@ -13,7 +13,7 @@
 - [x] It should be possible to see the current bitcoin price, purchase and sale
 - [x] It should be possible to buy bitcoin using the available balance in the costumer's account
 - [x] It should be possible to see all the customer's transactions 
-- [ ] It should be possible to sell BTC
+- [x] It should be possible to sell BTC
 - [x] It should be possible to list the deposits, purchases and withdrawals (last 90 days)
 - [x] It should be possible to see the total of bought and sold BTC at the current day
 - [x] It should be possible to see the history of the bought/sold value of BTC grouping by 10 minutes about last 24 hours
@@ -24,6 +24,7 @@
 - [ ] When buy bitcoin an e-mail must be sent with the amount invested in R$ and amount BTC purchased
 - [x] Costumer Transaction: Purchase date, amount invested, value of BTC at the time of purchase, percentage change in the price of Bitcoin and current gross value of the investment.
 - [ ] At the sales time, an e-mail must be sent with the value sold in BTC and the value redeemed in R$
+- [ ] Each register with +90 days since was created must be deleted
 
 ### Non-functional Requirements (RNFs)
 - [x] The programming language must be Node.js with TypeScript
