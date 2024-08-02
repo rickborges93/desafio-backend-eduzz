@@ -4,10 +4,13 @@ import { InsufficientBalanceError } from '../errors/insufficient-balance-error'
 import { BtcTransactionsRepository } from '@/repositories/transactions-repository'
 import { getCurrentBtcQuote } from '@/utils/get-current-btc-quote'
 import { getBalanceFromBtcTransactions } from '@/utils/get-balance-from-btc-transactions'
+import MailProvider from '@/providers/adapters/models/MailProvider'
+import { env } from '@/env'
 
 interface SellUseCaseRequest {
   amount: number
   userId: string
+  email: string
 }
 
 interface SellUseCaseResponse {
@@ -18,11 +21,13 @@ export class SellUseCase {
   constructor(
     private billingsRepository: BillingsRepository,
     private btcTransactionsRepository: BtcTransactionsRepository,
+    private mailProvider: MailProvider,
   ) {}
 
   async execute({
     amount,
     userId,
+    email,
   }: SellUseCaseRequest): Promise<SellUseCaseResponse> {
     const btcTransactions =
       await this.btcTransactionsRepository.findManyByUserId(userId)
@@ -57,6 +62,13 @@ export class SellUseCase {
         current_btc: currentBtcQuote.currentPrice,
         variation_pc: variationBtc,
         type: 'sell',
+      })
+
+      this.mailProvider.sendEmail({
+        from: { email: env.MAIL_PROVIDER_EMAIL, name: env.MAIL_PROVIDER_NAME },
+        to: email,
+        subject: '[Eduzz BTC Bank] Venda de Bitcoin',
+        body: `Você vendeu ${boughtBtc} BTC e recebeu R$${currentMoney}.`,
       })
 
       return { btcTransaction }
@@ -100,6 +112,17 @@ export class SellUseCase {
       bought_btc: differenceOfBtcBoughtAndWantToSell,
       current_btc: currentBtcQuote.currentPrice,
       variation_pc: variationBtc,
+    })
+
+    const recievedMoney = (
+      Number(currencyBtcSold) - Number(newAmountToBuyBtc)
+    ).toFixed(2)
+
+    this.mailProvider.sendEmail({
+      from: { email: env.MAIL_PROVIDER_EMAIL, name: env.MAIL_PROVIDER_NAME },
+      to: email,
+      subject: '[Eduzz BTC Bank] Venda de Bitcoin',
+      body: `Você vendeu ${amount} BTC e recebeu R$${recievedMoney}.`,
     })
 
     return { btcTransaction }

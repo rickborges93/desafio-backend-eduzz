@@ -11,11 +11,13 @@ export async function deposit(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const userId = request.user.sub
+    const email = request.user.iss
     const depositUseCase = makeDepositUseCase()
 
     await depositUseCase.execute({
       amount,
       userId,
+      email,
     })
   } catch (err) {
     return err

@@ -6,6 +6,8 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
   JWT_SECRET: z.string(),
   SENDGRID_API_KEY: z.string(),
+  MAIL_PROVIDER_NAME: z.string(),
+  MAIL_PROVIDER_EMAIL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

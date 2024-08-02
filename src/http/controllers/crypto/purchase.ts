@@ -12,11 +12,13 @@ export async function purchase(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const userId = request.user.sub
+    const email = request.user.iss
     const purchaseUseCase = makePurchaseUseCase()
 
     await purchaseUseCase.execute({
       amount,
       userId,
+      email,
     })
   } catch (err) {
     if (err instanceof InsufficientBalanceError) {
