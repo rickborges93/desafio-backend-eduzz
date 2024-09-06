@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import MailProvider from '@/providers/adapters/models/MailProvider'
+import QueueProvider from '@/providers/adapters/models/QueueProvider'
 import { BillingsRepository } from '@/repositories/billings-repository'
 import { Billing } from '@prisma/client'
 
@@ -16,7 +16,7 @@ interface DepositUseCaseResponse {
 export class DepositUseCase {
   constructor(
     private billingsRepository: BillingsRepository,
-    private mailProvider: MailProvider,
+    private queueProvider: QueueProvider,
   ) {}
 
   async execute({
@@ -30,7 +30,7 @@ export class DepositUseCase {
       type: 'deposit',
     })
 
-    this.mailProvider.sendEmail({
+    this.queueProvider.add({
       from: { email: env.MAIL_PROVIDER_EMAIL, name: env.MAIL_PROVIDER_NAME },
       to: email,
       subject: '[Eduzz BTC Bank] Depósito',
