@@ -26,9 +26,8 @@ class SendGridMailProvider implements MailProvider {
 
     sgMail
       .send(msg)
-      .then((result) => {
+      .then(() => {
         console.log('E-mail sent...')
-        console.log(result)
       })
       .catch((error) => {
         console.error(error)

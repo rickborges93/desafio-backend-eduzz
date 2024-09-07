@@ -8,6 +8,7 @@ const envSchema = z.object({
   SENDGRID_API_KEY: z.string(),
   MAIL_PROVIDER_NAME: z.string(),
   MAIL_PROVIDER_EMAIL: z.string(),
+  RABBITMQ_URL: z.string().default('amqp://localhost:5672'),
 })
 
 const _env = envSchema.safeParse(process.env)
