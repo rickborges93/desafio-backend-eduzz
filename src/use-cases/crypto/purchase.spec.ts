@@ -3,18 +3,25 @@ import { expect, describe, it, beforeEach } from 'vitest'
 import { PurchaseUseCase } from './purchase'
 import { InMemoryTransactionsRepository } from '@/repositories/in-memory/in-memory-transactions-repository'
 import { InsufficientBalanceError } from '../errors/insufficient-balance-error'
+import { InMemoryQueueRepository } from '@/repositories/in-memory/in-memory-queue-repository'
 
 // Unit test
 
 let billingsRepository: InMemoryBillingsRepository
 let btcTransactionsRepository: InMemoryTransactionsRepository
+let queueRepository: InMemoryQueueRepository
 let sut: PurchaseUseCase
 
 describe('Purchase Use Case', () => {
   beforeEach(async () => {
     billingsRepository = new InMemoryBillingsRepository()
     btcTransactionsRepository = new InMemoryTransactionsRepository()
-    sut = new PurchaseUseCase(billingsRepository, btcTransactionsRepository)
+    queueRepository = new InMemoryQueueRepository()
+    sut = new PurchaseUseCase(
+      billingsRepository,
+      btcTransactionsRepository,
+      queueRepository,
+    )
 
     await billingsRepository.create({
       user_id: 'user-01',
@@ -39,6 +46,7 @@ describe('Purchase Use Case', () => {
     const { btcTransaction } = await sut.execute({
       amount: 230,
       userId: 'user-01',
+      email: 'user-01@example.com',
     })
 
     expect(btcTransaction.id).toEqual(expect.any(String))
@@ -49,6 +57,7 @@ describe('Purchase Use Case', () => {
       sut.execute({
         amount: 500,
         userId: 'user-01',
+        email: 'user-01@example.com',
       }),
     ).rejects.toBeInstanceOf(InsufficientBalanceError)
   })

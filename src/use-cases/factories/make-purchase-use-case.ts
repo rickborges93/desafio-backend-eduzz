@@ -1,16 +1,16 @@
 import { PrismaBillingsRepository } from '@/repositories/prisma/prisma-billings-repository'
 import { PurchaseUseCase } from '../crypto/purchase'
 import { PrismaBtcTransactionsRepository } from '@/repositories/prisma/prisma-transactions-repository'
-import SendGridMailProvider from '@/providers/adapters/implementations/mail/SendGridMailProvider'
+import RabbitMQProvider from '@/providers/adapters/implementations/queue/RabbitMQProvider'
 
 export function makePurchaseUseCase() {
   const billingsRepository = new PrismaBillingsRepository()
   const btcTransactionsRepository = new PrismaBtcTransactionsRepository()
-  const mailProvider = new SendGridMailProvider()
+  const queueProvider = new RabbitMQProvider()
   const purchaseUseCase = new PurchaseUseCase(
     billingsRepository,
     btcTransactionsRepository,
-    mailProvider,
+    queueProvider,
   )
 
   return purchaseUseCase

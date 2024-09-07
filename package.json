@@ -4,7 +4,9 @@
   "description": "Teste de dev backend pleno da empresa Eduzz",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev:server": "tsx watch src/server.ts",
+    "dev:queue": "tsx watch src/runner.ts",
+    "dev": "run-s dev:server dev:queue",
     "start": "node build/server.js",
     "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
     "test:install-prisma-environment": "npm link vitest-environment-prisma",
@@ -21,6 +23,7 @@
   "license": "ISC",
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
+    "@types/amqplib": "0.10.5",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "22.0.0",
     "@types/node-cron": "3.0.11",
@@ -39,6 +42,7 @@
     "@fastify/jwt": "8.0.1",
     "@prisma/client": "5.17.0",
     "@sendgrid/mail": "8.1.3",
+    "amqplib": "0.10.4",
     "bcryptjs": "2.4.3",
     "dayjs": "1.11.12",
     "dotenv": "16.4.5",
