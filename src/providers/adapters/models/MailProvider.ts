@@ -1,4 +1,4 @@
-export interface Message {
+interface Message {
   from: {
     name: string
     email: string
